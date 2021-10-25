@@ -14,6 +14,10 @@
 		CEC96C652726F9EC00078099 /* CoreDataDemo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEC96C632726F9EC00078099 /* CoreDataDemo.xcdatamodeld */; };
 		CEC96C672726F9ED00078099 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEC96C662726F9ED00078099 /* Assets.xcassets */; };
 		CEC96C6A2726F9ED00078099 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEC96C682726F9ED00078099 /* LaunchScreen.storyboard */; };
+		CEC96C722726FF8D00078099 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC96C712726FF8D00078099 /* HomeViewController.swift */; };
+		CEC96C7E2727073A00078099 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC96C7D2727073A00078099 /* HomeTableViewCell.swift */; };
+		CEC96C81272708C800078099 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC96C80272708C800078099 /* UserModel.swift */; };
+		CEC96C8327270DA500078099 /* UserCoreDataAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC96C8227270DA500078099 /* UserCoreDataAction.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +30,10 @@
 		CEC96C662726F9ED00078099 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEC96C692726F9ED00078099 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEC96C6B2726F9ED00078099 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEC96C712726FF8D00078099 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CEC96C7D2727073A00078099 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		CEC96C80272708C800078099 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		CEC96C8227270DA500078099 /* UserCoreDataAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCoreDataAction.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +66,92 @@
 		CEC96C592726F9EC00078099 /* CoreDataDemo */ = {
 			isa = PBXGroup;
 			children = (
-				CEC96C5A2726F9EC00078099 /* AppDelegate.swift */,
-				CEC96C5C2726F9EC00078099 /* SceneDelegate.swift */,
-				CEC96C5E2726F9EC00078099 /* ViewController.swift */,
-				CEC96C602726F9EC00078099 /* Main.storyboard */,
-				CEC96C662726F9ED00078099 /* Assets.xcassets */,
-				CEC96C682726F9ED00078099 /* LaunchScreen.storyboard */,
+				CEC96C7A2727071100078099 /* Module */,
+				CEC96C79272706FF00078099 /* Resources */,
+				CEC96C78272706F500078099 /* Storyboard */,
+				CEC96C77272706E200078099 /* AppDelegate */,
+				CEC96C732726FF9600078099 /* CoreDataAction */,
 				CEC96C6B2726F9ED00078099 /* Info.plist */,
 				CEC96C632726F9EC00078099 /* CoreDataDemo.xcdatamodeld */,
 			);
 			path = CoreDataDemo;
+			sourceTree = "<group>";
+		};
+		CEC96C732726FF9600078099 /* CoreDataAction */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C8227270DA500078099 /* UserCoreDataAction.swift */,
+			);
+			path = CoreDataAction;
+			sourceTree = "<group>";
+		};
+		CEC96C76272706DE00078099 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C7D2727073A00078099 /* HomeTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		CEC96C77272706E200078099 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C5A2726F9EC00078099 /* AppDelegate.swift */,
+				CEC96C5C2726F9EC00078099 /* SceneDelegate.swift */,
+			);
+			path = AppDelegate;
+			sourceTree = "<group>";
+		};
+		CEC96C78272706F500078099 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C682726F9ED00078099 /* LaunchScreen.storyboard */,
+				CEC96C602726F9EC00078099 /* Main.storyboard */,
+			);
+			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		CEC96C79272706FF00078099 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C662726F9ED00078099 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		CEC96C7A2727071100078099 /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C7C2727071D00078099 /* Home */,
+				CEC96C7B2727071500078099 /* Signup */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		CEC96C7B2727071500078099 /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C5E2726F9EC00078099 /* ViewController.swift */,
+			);
+			path = Signup;
+			sourceTree = "<group>";
+		};
+		CEC96C7C2727071D00078099 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C7F272708B900078099 /* Model */,
+				CEC96C76272706DE00078099 /* Cell */,
+				CEC96C712726FF8D00078099 /* HomeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		CEC96C7F272708B900078099 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEC96C80272708C800078099 /* UserModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,6 +224,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEC96C8327270DA500078099 /* UserCoreDataAction.swift in Sources */,
+				CEC96C722726FF8D00078099 /* HomeViewController.swift in Sources */,
+				CEC96C81272708C800078099 /* UserModel.swift in Sources */,
+				CEC96C7E2727073A00078099 /* HomeTableViewCell.swift in Sources */,
 				CEC96C5F2726F9EC00078099 /* ViewController.swift in Sources */,
 				CEC96C652726F9EC00078099 /* CoreDataDemo.xcdatamodeld in Sources */,
 				CEC96C5B2726F9EC00078099 /* AppDelegate.swift in Sources */,
@@ -292,6 +380,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CoreDataDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -310,6 +399,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CoreDataDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
