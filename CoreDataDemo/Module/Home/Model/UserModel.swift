@@ -23,6 +23,6 @@ extension UserModel {
         self.email = user.emailAddress ?? ""
         self.address = user.address ?? ""
         self.image = UIImage(systemName: "person.circle.fill")!
-        self.gender = "male"
+        self.gender = user.gender ?? ""
     }
 }

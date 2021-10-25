@@ -28,7 +28,7 @@ class HomeTableViewCell: UITableViewCell {
         userImageView.image = model.image
         nameLabel.text = model.firstName + " " + model.lastName
         emailLabel.text = model.email
-        genderLabel.text = model.gender
+        genderLabel.text = model.gender.capitalized
         addressLabel.text = model.address
     }
 

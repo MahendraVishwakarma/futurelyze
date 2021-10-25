@@ -41,7 +41,7 @@ class HomeViewController: UIViewController {
                 self.reloadTableView()
                 break
             case .failure(let error):
-                debugPrint(error.localizedDescription)
+                self.showAlert(with: error.localizedDescription)
                 break
             }
         }

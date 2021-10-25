@@ -33,6 +33,7 @@ class UserCoreDataAction {
         newUser.lastName = model.lastName
         newUser.emailAddress = model.email
         newUser.address = model.address
+        newUser.gender = model.gender
         
         saveContext(with: managedContext)
     }

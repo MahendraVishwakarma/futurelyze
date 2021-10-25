@@ -13,6 +13,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var genderMaleChoice: UIButton!
+    @IBOutlet weak var genderFemaleChoice: UIButton!
+    
+    var genderChoice = "" // Default
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +32,24 @@ class ViewController: UIViewController {
         signupAction()
     }
     
+    @IBAction func genderMaleChoiceClicked(_ sender: UIButton) {
+        clearGenderChoice()
+        genderChoice = "male"
+        genderMaleChoice.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+    }
+    
+    @IBAction func femaleMaleChoiceClicked(_ sender: UIButton) {
+        clearGenderChoice()
+        genderChoice = "female"
+        genderFemaleChoice.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+    }
+    
+    fileprivate func clearGenderChoice() {
+        genderChoice = ""
+        genderMaleChoice.setImage(UIImage(systemName: "circle"), for: .normal)
+        genderFemaleChoice.setImage(UIImage(systemName: "circle"), for: .normal)
+    }
+    
     private func moveToHomeScreen() {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: String(describing: HomeViewController.self)) as! HomeViewController
         
@@ -39,6 +61,7 @@ class ViewController: UIViewController {
 extension ViewController {
     
     fileprivate func signupAction() {
+        
         let inputValidate = isInputValidate()
         
         guard inputValidate.isValid else {
@@ -46,9 +69,12 @@ extension ViewController {
             return
         }
         
-        let userModel = getUserModel()
+        guard let userModel = getUserModel() else {
+            return
+        }
         
         UserCoreDataAction.shared.save(user: userModel)
+        
         moveToHomeScreen()
         
     }
@@ -65,9 +91,14 @@ extension ViewController {
             return (false, "Please enter last Name")
         }
         
+        // here can also enhance email regex validate funcionality
         guard let emailAddress = emailAddressTextField.text,
               !emailAddress.isEmpty else {
             return (false, "Please enter email address")
+        }
+        
+        guard !genderChoice.isEmpty else {
+            return (false, "Please select gender")
         }
         
         guard let address = addressTextField.text,
@@ -79,15 +110,22 @@ extension ViewController {
     }
     
     
-    fileprivate func getUserModel() -> UserModel {
-        let userModel = UserModel(firstName: firstNameTextField.text!,
-                                  lastName: lastNameTextField.text!,
-                                  email: emailAddressTextField.text!,
-                                  image: UIImage(systemName: "person.circle.fill")!,
-                                  gender: "male",
-                                  address: addressTextField.text!)
+    fileprivate func getUserModel() -> UserModel? {
+        guard let firstName = firstNameTextField.text,
+           let lastName = lastNameTextField.text,
+           let email = emailAddressTextField.text,
+           let image = UIImage(systemName: "person.circle.fill"),
+           let address = addressTextField.text else {
+            
+            return nil
+        }
         
-        return userModel
+        return UserModel(firstName: firstName,
+                                  lastName: lastName,
+                                  email: email,
+                                  image: image,
+                                  gender: genderChoice,
+                                  address: address)
     }
     
     

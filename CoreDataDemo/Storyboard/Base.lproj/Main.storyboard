@@ -77,6 +77,9 @@
                                                 <color key="tintColor" systemColor="systemBlueColor"/>
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <state key="normal" title="Female" image="circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="femaleMaleChoiceClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DW8-lx-OL2"/>
+                                                </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eBJ-rq-INT">
                                                 <rect key="frame" x="32" y="253" width="350" height="34"/>
@@ -93,6 +96,9 @@
                                                 <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-1"/>
                                                 <state key="normal" title="Male" image="circle" catalog="system"/>
+                                                <connections>
+                                                    <action selector="genderMaleChoiceClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="grs-pt-HdB"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTk-Cp-TI9">
                                                 <rect key="frame" x="32" y="327" width="350" height="40"/>
@@ -162,6 +168,8 @@
                         <outlet property="addressTextField" destination="eBJ-rq-INT" id="Qeh-wz-nOf"/>
                         <outlet property="emailAddressTextField" destination="ZSv-zU-CtL" id="Pjv-ha-dr4"/>
                         <outlet property="firstNameTextField" destination="pXk-bc-sga" id="rSW-gS-yj8"/>
+                        <outlet property="genderFemaleChoice" destination="cVS-po-wxR" id="3Q5-eO-oxQ"/>
+                        <outlet property="genderMaleChoice" destination="XKu-aL-CjL" id="TLr-Ab-aD4"/>
                         <outlet property="lastNameTextField" destination="pjn-c6-RbH" id="k4Z-m7-Sx3"/>
                     </connections>
                 </viewController>
