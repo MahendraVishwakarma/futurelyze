@@ -15,8 +15,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var addressTextField: UITextField!
     @IBOutlet weak var genderMaleChoice: UIButton!
     @IBOutlet weak var genderFemaleChoice: UIButton!
+    @IBOutlet weak var userImageView: UIImageView!
     
+    var imagePicker = UIImagePickerController()
     var genderChoice = "" // Default
+    var isImageSelected = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +28,12 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.isHidden = true
+        userImageView.layer.cornerRadius = 50
+        userImageView.clipsToBounds = true
     }
     
     
+    // MARK:- IBAction
     @IBAction func signupClicked(_ sender: UIButton) {
         signupAction()
     }
@@ -43,6 +49,12 @@ class ViewController: UIViewController {
         genderChoice = "female"
         genderFemaleChoice.setImage(UIImage(systemName: "circle.fill"), for: .normal)
     }
+    
+    @IBAction func editImageClicked(_ sender: UIButton) {
+        self.editImageAction()
+    }
+    
+    
     
     fileprivate func clearGenderChoice() {
         genderChoice = ""
@@ -70,6 +82,7 @@ extension ViewController {
         }
         
         guard let userModel = getUserModel() else {
+            showAlert(with: "user is not generated")
             return
         }
         
@@ -80,6 +93,10 @@ extension ViewController {
     }
     
     fileprivate func isInputValidate() -> (isValid: Bool, message: String) {
+        
+        guard isImageSelected else {
+            return (false, "Please select image")
+        }
         
         guard let firstName = firstNameTextField.text,
               !firstName.isEmpty else {
@@ -114,8 +131,8 @@ extension ViewController {
         guard let firstName = firstNameTextField.text,
            let lastName = lastNameTextField.text,
            let email = emailAddressTextField.text,
-           let image = UIImage(systemName: "person.circle.fill"),
-           let address = addressTextField.text else {
+           let address = addressTextField.text,
+           let image = userImageView.image else {
             
             return nil
         }
@@ -138,5 +155,53 @@ extension ViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true)
     }
+    
+    fileprivate func editImageAction() {
+        let alert = UIAlertController(title: "Select Image", message: nil , preferredStyle: .actionSheet)
+        
+        let galleryAction = UIAlertAction(title: "Gallery", style: .default) { action in
+            self.openGallery()
+        }
+        
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in
+            
+        }
+        
+        alert.addAction(galleryAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension ViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        picker.dismiss(animated: true, completion: nil)
+        guard let image = info[.originalImage] as? UIImage else {
+            return
+        }
+        isImageSelected = true
+        userImageView.image = image
+    }
+    
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    fileprivate func openGallery() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
+            
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true, completion: nil)
+        }
+    }
+    
+    
 }
 

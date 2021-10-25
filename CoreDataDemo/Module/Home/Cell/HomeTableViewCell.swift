@@ -24,9 +24,16 @@ class HomeTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        userImageView.layer.cornerRadius = 30
+        userImageView.contentMode = .scaleToFill
+        userImageView.clipsToBounds = true
+    }
+    
     func configure(with model: UserModel) {
         userImageView.image = model.image
-        nameLabel.text = model.firstName + " " + model.lastName
+        nameLabel.text = (model.firstName + " " + model.lastName).capitalized
         emailLabel.text = model.email
         genderLabel.text = model.gender.capitalized
         addressLabel.text = model.address

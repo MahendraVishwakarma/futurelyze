@@ -22,7 +22,14 @@ extension UserModel {
         self.lastName = user.lastName ?? ""
         self.email = user.emailAddress ?? ""
         self.address = user.address ?? ""
-        self.image = UIImage(systemName: "person.circle.fill")!
+        
         self.gender = user.gender ?? ""
+        
+        if let imageData = user.image,
+           let image = UIImage(data: imageData) {
+            self.image = image
+        } else {
+            self.image = UIImage(systemName: "person.circle.fill")!
+        }
     }
 }
