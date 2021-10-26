@@ -14,6 +14,7 @@ struct UserModel {
     var image: UIImage
     var gender: String
     var address: String
+    var dateOfBirth: String
 }
 
 extension UserModel {
@@ -24,6 +25,7 @@ extension UserModel {
         self.address = user.address ?? ""
         
         self.gender = user.gender ?? ""
+        self.dateOfBirth = user.dateOfBirth ?? ""
         
         if let imageData = user.image,
            let image = UIImage(data: imageData) {

@@ -14,6 +14,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var dobLabel: UILabel!
     
 
     override func awakeFromNib() {
@@ -37,6 +38,7 @@ class HomeTableViewCell: UITableViewCell {
         emailLabel.text = model.email
         genderLabel.text = model.gender.capitalized
         addressLabel.text = model.address
+        dobLabel.text = model.dateOfBirth
     }
 
 }

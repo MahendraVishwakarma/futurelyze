@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var lastNameTextField: UITextField!
     @IBOutlet weak var emailAddressTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
+    @IBOutlet weak var dobTextField: UITextField!
     @IBOutlet weak var genderMaleChoice: UIButton!
     @IBOutlet weak var genderFemaleChoice: UIButton!
     @IBOutlet weak var userImageView: UIImageView!
@@ -20,9 +21,12 @@ class ViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var genderChoice = "" // Default
     var isImageSelected = false
+    
+    let datePicker = UIDatePicker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        mapDatePickerToTextField()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,6 +52,7 @@ class ViewController: UIViewController {
         clearGenderChoice()
         genderChoice = "female"
         genderFemaleChoice.setImage(UIImage(systemName: "circle.fill"), for: .normal)
+        
     }
     
     @IBAction func editImageClicked(_ sender: UIButton) {
@@ -114,6 +119,11 @@ extension ViewController {
             return (false, "Please enter email address")
         }
         
+        guard let dateOfBirth = emailAddressTextField.text,
+              !dateOfBirth.isEmpty else {
+            return (false, "Please select date of Birth")
+        }
+        
         guard !genderChoice.isEmpty else {
             return (false, "Please select gender")
         }
@@ -129,20 +139,22 @@ extension ViewController {
     
     fileprivate func getUserModel() -> UserModel? {
         guard let firstName = firstNameTextField.text,
-           let lastName = lastNameTextField.text,
-           let email = emailAddressTextField.text,
-           let address = addressTextField.text,
-           let image = userImageView.image else {
+              let lastName = lastNameTextField.text,
+              let email = emailAddressTextField.text,
+              let address = addressTextField.text,
+              let image = userImageView.image,
+              let dateOfBirth = dobTextField.text else {
             
             return nil
         }
         
         return UserModel(firstName: firstName,
-                                  lastName: lastName,
-                                  email: email,
-                                  image: image,
-                                  gender: genderChoice,
-                                  address: address)
+                         lastName: lastName,
+                         email: email,
+                         image: image,
+                         gender: genderChoice,
+                         address: address,
+                         dateOfBirth: dateOfBirth)
     }
     
     
@@ -172,6 +184,47 @@ extension ViewController {
         alert.addAction(cancelAction)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    
+    fileprivate func mapDatePickerToTextField(){
+        //Formate Date
+        
+        if #available(iOS 14, *)  {
+            datePicker.preferredDatePickerStyle = .inline
+        } else if #available(iOS 13.4, *) {
+            datePicker.preferredDatePickerStyle = .compact
+        } else {
+            // fallback 
+        }
+        
+        datePicker.datePickerMode = .date
+        
+        //ToolBar
+        let toolbar = UIToolbar();
+        toolbar.sizeToFit()
+        let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(donedatePicker));
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelDatePicker));
+        
+        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        dobTextField.inputAccessoryView = toolbar
+        dobTextField.inputView = datePicker
+        
+    }
+    
+    @objc fileprivate func donedatePicker(){
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM/yyyy"
+        debugPrint(formatter.string(from: datePicker.date))
+        dobTextField.text = formatter.string(from: datePicker.date)
+        self.view.endEditing(true)
+    }
+    
+    @objc fileprivate func cancelDatePicker(){
+        self.view.endEditing(true)
+    }
+    
 }
 
 extension ViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {

@@ -35,6 +35,7 @@ class UserCoreDataAction {
         newUser.address = model.address
         newUser.gender = model.gender
         newUser.image = model.image.pngData()
+        newUser.dateOfBirth = model.dateOfBirth
         
         saveContext(with: managedContext)
     }
