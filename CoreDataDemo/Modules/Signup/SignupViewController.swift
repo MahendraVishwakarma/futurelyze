@@ -2,12 +2,12 @@
 //  ViewController.swift
 //  CoreDataDemo
 //
-//  Created by Bhavesh on 25/10/21.
+//  Created by Madhuri on 25/10/21.
 //
 
 import UIKit
 
-class ViewController: UIViewController {
+class SignupViewController: UIViewController {
     
     @IBOutlet weak var firstNameTextField: UITextField!
     @IBOutlet weak var lastNameTextField: UITextField!
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController {
+extension SignupViewController {
     
     fileprivate func signupAction() {
         
@@ -118,8 +118,11 @@ extension ViewController {
               !emailAddress.isEmpty else {
             return (false, "Please enter email address")
         }
+        if !emailAddress.isValidEmail() {
+            return (false, "Please enter valid email address")
+        }
         
-        guard let dateOfBirth = emailAddressTextField.text,
+        guard let dateOfBirth = dobTextField.text,
               !dateOfBirth.isEmpty else {
             return (false, "Please select date of Birth")
         }
@@ -227,7 +230,7 @@ extension ViewController {
     
 }
 
-extension ViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+extension SignupViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         picker.dismiss(animated: true, completion: nil)

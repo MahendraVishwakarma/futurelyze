@@ -2,7 +2,7 @@
 //  HomeViewController.swift
 //  CoreDataDemo
 //
-//  Created by Bhavesh on 25/10/21.
+//  Created by Madhuri on 25/10/21.
 //
 
 import UIKit
@@ -12,7 +12,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     fileprivate var userList: [UserModel] = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Home"
@@ -60,10 +60,24 @@ class HomeViewController: UIViewController {
         alert.addAction(okAction)
         self.present(alert, animated: true)
     }
-
+    
 }
 
 extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            let user = userList[indexPath.row]
+            let obj = UsersViewController()
+            obj.viewModel = UsersViewModel()
+            if user.gender == "male" {
+                obj.viewModel?.selectedGender = .male
+            }else {
+                obj.viewModel?.selectedGender = .female
+            }
+          
+            self.navigationController?.pushViewController(obj, animated: true)
+        
+       
+    }
     
 }
 
