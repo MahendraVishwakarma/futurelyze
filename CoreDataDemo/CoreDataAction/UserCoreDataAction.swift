@@ -2,7 +2,7 @@
 //  SignupCoreDataAction.swift
 //  CoreDataDemo
 //
-//  Created by Bhavesh on 25/10/21.
+//  Created by Madhuri on 25/10/21.
 //
 
 import UIKit
@@ -42,7 +42,7 @@ class UserCoreDataAction {
     
     func fetchUsers(completion: @escaping (Result<[UserModel], DataBaseError>) -> Void) {
         let managedContext = getContext()
-        fetch(type: User.self, managedObjectContext: managedContext) { [weak self] (userList: [User]?) in
+        fetch(type: User.self, managedObjectContext: managedContext) {  (userList: [User]?) in
             
             guard let userList = userList,
                   userList.count > 0 else {

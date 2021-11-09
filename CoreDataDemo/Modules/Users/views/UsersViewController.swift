@@ -6,10 +6,17 @@
 //
 
 import UIKit
+import RxSwift
 
 class UsersViewController: UIViewController {
 
+    var disposeBag = DisposeBag()
     var viewModel:UsersViewModel?
+    @IBOutlet weak var userListTableView: UITableView!
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    
+    @IBOutlet weak var segment: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,20 +24,81 @@ class UsersViewController: UIViewController {
         setupViewModel()
     }
     
-    private func setupViewModel() {
-        viewModel = UsersViewModel()
+    
+   private func bindViewModel() {
+        let input = viewModel?.inputs
+        let outputs = viewModel?.outputs
+    
+        outputs?.baseStateObservable.asObservable()
+            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
+            .observeOn(MainScheduler.asyncInstance)
+            .subscribe(onNext: { [unowned self](state) in
+            switch state {
+            case .notLoad, .loading:
+                self.activity.startAnimating()
+            break
+            case .finished:
+                DispatchQueue.main.async{
+                    self.activity.stopAnimating()
+                    self.userListTableView.reloadData()
+                }
+            case .failed:
+                self.activity.stopAnimating()
+                //show error
+            break
+            }
+        }).disposed(by: disposeBag)
         
+        input?.fetchUsersAPI.execute()
+    }
+        
+    private func setupViewModel() {
+       
+        userListTableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
+        userListTableView.dataSource = self
+        self.activity.startAnimating()
+        if(viewModel?.selectedGender == .male) {
+            segment.selectedSegmentIndex = 0
+        }else {
+            segment.selectedSegmentIndex = 1
+        }
+       bindViewModel()
     }
     @IBAction func genderToggle(_ sender: UISegmentedControl) {
-        
+        self.activity.startAnimating()
         switch sender.selectedSegmentIndex {
         case 0 :
-            break
+            viewModel?.selectedGender = .male
+            viewModel?.inputs.fetchUsersAPI.execute()
+            
         case 1:
-            break
+            viewModel?.selectedGender = .female
+            viewModel?.inputs.fetchUsersAPI.execute()
         default:
-            break
+            viewModel?.selectedGender = .male
+            viewModel?.inputs.fetchUsersAPI.execute()
         }
     }
     
 }
+
+//MARK: UITableViewDataSource, UITableViewDelegate
+extension UsersViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel?.userList?.count ?? 0
+    }
+    
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell", for: indexPath) as? UsersTableViewCell else{
+            return UITableViewCell()
+        }
+        if let user = viewModel?.userList?[indexPath.row] {
+            cell.setData(user:user)
+        }
+        
+        
+        return cell
+    }
+}
+

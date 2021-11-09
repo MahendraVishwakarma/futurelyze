@@ -10,14 +10,13 @@ import UIKit
 class HomeViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    
-    fileprivate var userList: [UserModel] = []
+    @IBOutlet weak var activity: UIActivityIndicatorView!
+    var viewModel:HomeViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Home"
         initialTableViewSetup()
-        fetchUsers()
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -26,46 +25,25 @@ class HomeViewController: UIViewController {
     }
     
     fileprivate func initialTableViewSetup() {
-        tableView.dataSource = self
-        tableView.delegate = self
+        viewModel = HomeViewModel()
+        viewModel?.delegate = self
+       
         tableView.tableFooterView = UIView()
         tableView.estimatedRowHeight = 200
         tableView.rowHeight = UITableView.automaticDimension
-    }
-    
-    fileprivate func fetchUsers() {
-        UserCoreDataAction.shared.fetchUsers { result in
-            switch result {
-            case .success(let users):
-                self.userList = users
-                self.reloadTableView()
-                break
-            case .failure(let error):
-                self.showAlert(with: error.localizedDescription)
-                break
-            }
-        }
-    }
-    
-    fileprivate func reloadTableView() {
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-    }
-    
-    fileprivate func showAlert(with message: String) {
         
-        let alert = UIAlertController(title: "Core Data Demo", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true)
+        tableView.register(UINib(nibName: "HomeTableViewCell", bundle: nil), forCellReuseIdentifier: "HomeTableViewCell")
+        tableView.dataSource = self
+        tableView.delegate = self
+        self.activity.startAnimating()
+        viewModel?.fetchData()
     }
     
 }
 
 extension HomeViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-            let user = userList[indexPath.row]
+        if let user = viewModel?.userList[indexPath.row] {
             let obj = UsersViewController()
             obj.viewModel = UsersViewModel()
             if user.gender == "male" {
@@ -75,24 +53,35 @@ extension HomeViewController: UITableViewDelegate {
             }
           
             self.navigationController?.pushViewController(obj, animated: true)
-        
-       
+        }
+            
     }
     
 }
 
 extension HomeViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userList.count
+        return viewModel?.userList.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HomeTableViewCell.self), for: indexPath) as! HomeTableViewCell
-        
-        cell.configure(with: userList[indexPath.row])
+        if let user =  viewModel?.userList[indexPath.row] {
+            cell.configure(with: user)
+        }
+       
         
         return cell
     }
     
     
+}
+
+extension HomeViewController: UserUpdateDelegate {
+    func updateList(status:Int) {
+        DispatchQueue.main.async{
+            self.activity.stopAnimating()
+            self.tableView.reloadData()
+        }
+    }
 }

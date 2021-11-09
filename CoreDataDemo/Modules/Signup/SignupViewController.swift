@@ -161,8 +161,6 @@ extension SignupViewController {
     }
     
     
-    
-    
     fileprivate func showAlert(with message: String) {
         
         let alert = UIAlertController(title: "Core Data Demo", message: message, preferredStyle: .alert)

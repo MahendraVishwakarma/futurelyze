@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+
+// MARK: - UsersListElement
+struct UsersListData: Codable {
+    let id, name, gender, address: String?
+    let company: String?
+}
+
+typealias UsersList = [UsersListData]

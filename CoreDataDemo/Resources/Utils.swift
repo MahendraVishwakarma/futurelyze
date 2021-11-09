@@ -1,14 +1,14 @@
 //
 //  Utils.swift
-//  XMMPAuth
+//  
 //
 //  Created by Mahendra Vishwakarma on 24/10/21.
 //
 
 import Foundation
 class Utils {
-    static let cityURL = "http://api.openweathermap.org/data/2.5/find?lat=15.3173&lon=75.7139&cnt=50&appid=ca648534ff7ed2d9b633adb2a76fc56e"
-    static let weatherDetails = ""
+    static let maleURL = "https://api.json-generator.com/templates/lg7YWYQ-Q-tf/data?access_token=a9rlwjhd74ek670kt66nf1tduv5m294kdxoxc39w"
+    static let femaleURL = "https://api.json-generator.com/templates/gTEZ9DpgnIJE/data?access_token=a9rlwjhd74ek670kt66nf1tduv5m294kdxoxc39w"
 }
 
 //Result type

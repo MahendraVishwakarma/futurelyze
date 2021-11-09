@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="UsersViewController" customModule="CoreDataDemo" customModuleProvider="target">
             <connections>
+                <outlet property="activity" destination="KPA-jl-71H" id="pg6-Xg-Jyc"/>
+                <outlet property="segment" destination="HQm-xS-cn3" id="o6J-j4-5cd"/>
+                <outlet property="userListTableView" destination="s7h-X7-Bzm" id="g6c-OM-K69"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -32,12 +35,26 @@
                         <action selector="genderToggle:" destination="-1" eventType="valueChanged" id="xhz-iw-mtu"/>
                     </connections>
                 </segmentedControl>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s7h-X7-Bzm">
+                    <rect key="frame" x="0.0" y="122" width="414" height="740"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="KPA-jl-71H">
+                    <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                    <color key="color" red="0.74509803919999995" green="0.098039215690000001" blue="0.29411764709999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="s7h-X7-Bzm" firstAttribute="top" secondItem="HQm-xS-cn3" secondAttribute="bottom" constant="20" id="0OI-VZ-SN4"/>
+                <constraint firstItem="s7h-X7-Bzm" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="44m-ub-eAn"/>
+                <constraint firstAttribute="trailing" secondItem="s7h-X7-Bzm" secondAttribute="trailing" id="FZR-gQ-cHZ"/>
+                <constraint firstItem="KPA-jl-71H" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="HOe-h2-emY"/>
+                <constraint firstItem="KPA-jl-71H" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Ixm-yA-DDM"/>
                 <constraint firstItem="HQm-xS-cn3" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="27" id="R73-Uj-sxt"/>
                 <constraint firstItem="HQm-xS-cn3" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XZY-6T-Rra"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="s7h-X7-Bzm" secondAttribute="bottom" id="yPW-fp-QJE"/>
             </constraints>
             <point key="canvasLocation" x="73.913043478260875" y="79.6875"/>
         </view>
