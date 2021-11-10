@@ -41,7 +41,7 @@ class UsersViewController: UIViewController {
             case .finished:
                 DispatchQueue.main.async{
                     self.activity.stopAnimating()
-                    self.userListTableView.reloadData()
+                   
                 }
             case .failed:
                 self.activity.stopAnimating()
@@ -56,7 +56,11 @@ class UsersViewController: UIViewController {
     private func setupViewModel() {
        
         userListTableView.register(UINib(nibName: "UsersTableViewCell", bundle: nil), forCellReuseIdentifier: "UsersTableViewCell")
-        userListTableView.dataSource = self
+        
+        viewModel?.userList.bind(to: userListTableView.rx.items(cellIdentifier: "UsersTableViewCell", cellType: UsersTableViewCell.self)) {  (row,user,cell) in
+            cell.user = user
+            }.disposed(by: disposeBag)
+       
         self.activity.startAnimating()
         if(viewModel?.selectedGender == .male) {
             segment.selectedSegmentIndex = 0
@@ -81,26 +85,5 @@ class UsersViewController: UIViewController {
         }
     }
     
-}
-
-//MARK: UITableViewDataSource, UITableViewDelegate
-extension UsersViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel?.userList?.count ?? 0
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "UsersTableViewCell", for: indexPath) as? UsersTableViewCell else{
-            return UITableViewCell()
-        }
-        if let user = viewModel?.userList?[indexPath.row] {
-            let userObs: BehaviorRelay<UsersListData> = BehaviorRelay(value: user)
-            cell.setData(user:userObs)
-        }
-        
-        
-        return cell
-    }
 }
 

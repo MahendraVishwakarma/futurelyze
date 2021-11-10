@@ -36,4 +36,19 @@ class UsersTableViewCell: UITableViewCell {
       
     }
     
+    public var user : UsersListData! {
+        didSet {
+            userName.text = user.name
+            genderLabel.text = user.gender
+            company.text = user.company
+            addressLabel.text = user.address
+            
+            //self.trackImage.clipsToBounds = true
+            //self.trackImage.layer.cornerRadius = 3
+           // self.trackImage.loadImage(fromURL: cellTrack.trackArtWork)
+           // self.trackTitle.text = cellTrack.name
+           // self.trackArtist.text = cellTrack.artist
+        }
+    }
+    
 }

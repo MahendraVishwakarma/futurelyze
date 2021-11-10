@@ -23,8 +23,9 @@ protocol UsersViewModelType {
 }
 
 class UsersViewModel:BaseViewModel, UsersViewModelInput, UsersViewModelOuput, UsersViewModelType {
-    var userList:UsersList?
-    
+    //var userList:UsersList?
+    public let userList : PublishSubject<UsersList> = PublishSubject()
+    public let isLoading : PublishSubject<Bool> = PublishSubject()
     var inputs: UsersViewModelInput { return self }
     var outputs: UsersViewModelOuput { return self }
     
@@ -72,8 +73,8 @@ class UsersViewModel:BaseViewModel, UsersViewModelInput, UsersViewModelOuput, Us
                     self?.baseStateProperty.onNext(.finished)
                     
                     self?.outputs.baseStateObservable.subscribe(onNext: { [weak self] model in
-                        self?.userList = data
-                       
+                        //self?.userList = data
+                        self?.userList.onNext(data)
                     }).dispose()
                     
                 }else {
