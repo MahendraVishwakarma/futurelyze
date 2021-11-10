@@ -7,6 +7,7 @@ target 'CoreDataDemo' do
 pod 'RxSwift'
 pod 'Action'
 pod 'RxSwiftExt', '~> 5'
+pod 'RxCocoa'
   # Pods for CoreDataDemo
 
 end

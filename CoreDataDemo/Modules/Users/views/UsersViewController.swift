@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import RxRelay
 
 class UsersViewController: UIViewController {
 
@@ -94,7 +95,8 @@ extension UsersViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         if let user = viewModel?.userList?[indexPath.row] {
-            cell.setData(user:user)
+            let userObs: BehaviorRelay<UsersListData> = BehaviorRelay(value: user)
+            cell.setData(user:userObs)
         }
         
         

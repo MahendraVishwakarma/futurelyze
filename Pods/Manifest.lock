@@ -19,6 +19,7 @@ PODS:
 
 DEPENDENCIES:
   - Action
+  - RxCocoa
   - RxSwift
   - RxSwiftExt (~> 5)
 
@@ -37,6 +38,6 @@ SPEC CHECKSUMS:
   RxSwift: 915abbdfb62214aa89ccd0b194d44fb478019b27
   RxSwiftExt: 4ca80336f43c28f11a2825cdd2fc61dd6c044697
 
-PODFILE CHECKSUM: 27d170dd52ef4aecb1975ec3fcfb21aa107529d6
+PODFILE CHECKSUM: 4a77babd921ed42f0cf0103c8c5365b465e4565e
 
 COCOAPODS: 1.10.1

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class UsersTableViewCell: UITableViewCell {
 
@@ -13,9 +15,11 @@ class UsersTableViewCell: UITableViewCell {
     @IBOutlet weak var genderLabel: UILabel!
     @IBOutlet weak var company: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+   // var user:PublishSubject<UsersListData>?
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -24,11 +28,12 @@ class UsersTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(user:UsersListData?) {
-        userName.text = user?.name?.capitalized
-        genderLabel.text = user?.gender?.capitalized
-        company.text = user?.company
-        addressLabel.text = user?.address
+    func setData(user:BehaviorRelay<UsersListData>?) {
+        user?.map({$0.name?.capitalized}).bind(to: userName.rx.text).dispose()
+        user?.map({"⚥ "+($0.gender?.capitalized ?? "")}).bind(to: genderLabel.rx.text).dispose()
+        user?.map({"🏠 "+($0.company?.capitalized ?? "")}).bind(to: company.rx.text).dispose()
+        user?.map({$0.address?.capitalized}).bind(to: addressLabel.rx.text).dispose()
+      
     }
     
 }

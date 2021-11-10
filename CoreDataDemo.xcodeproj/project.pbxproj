@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		80B0E5C32739FEFA003D887F /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B0E5C22739FEFA003D887F /* BaseViewModel.swift */; };
+		80B0E623273B5A46003D887F /* UILabel+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B0E622273B5A46003D887F /* UILabel+Rx.swift */; };
 		80C48F30272D246000621E27 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C48F2F272D246000621E27 /* UserViewModel.swift */; };
 		80C48F34272D247200621E27 /* UsersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80C48F32272D247200621E27 /* UsersViewController.swift */; };
 		80C48F35272D247200621E27 /* UsersViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80C48F33272D247200621E27 /* UsersViewController.xib */; };
@@ -36,6 +37,7 @@
 		6D6711D10DEC2991E7C00FDB /* Pods-CoreDataDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreDataDemo.release.xcconfig"; path = "Target Support Files/Pods-CoreDataDemo/Pods-CoreDataDemo.release.xcconfig"; sourceTree = "<group>"; };
 		79F63B85AF8B3E2B13457400 /* Pods_CoreDataDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoreDataDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		80B0E5C22739FEFA003D887F /* BaseViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
+		80B0E622273B5A46003D887F /* UILabel+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Rx.swift"; sourceTree = "<group>"; };
 		80C48F2F272D246000621E27 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		80C48F32272D247200621E27 /* UsersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersViewController.swift; sourceTree = "<group>"; };
 		80C48F33272D247200621E27 /* UsersViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UsersViewController.xib; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				80B0E5C22739FEFA003D887F /* BaseViewModel.swift */,
 				80C48F3B272D27A700621E27 /* Utils.swift */,
 				CEC96C662726F9ED00078099 /* Assets.xcassets */,
+				80B0E622273B5A46003D887F /* UILabel+Rx.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				80C48F43272D38F600621E27 /* UsersTableViewCell.swift in Sources */,
 				80C48F3F272D293F00621E27 /* UserList.swift in Sources */,
 				CEC96C5D2726F9EC00078099 /* SceneDelegate.swift in Sources */,
+				80B0E623273B5A46003D887F /* UILabel+Rx.swift in Sources */,
 				80C48F3C272D27A700621E27 /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
